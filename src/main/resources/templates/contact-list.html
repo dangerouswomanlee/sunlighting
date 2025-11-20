@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>문의 리스트</title>
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/contact.css">
+
+</head>
+<body>
+
+
+	<header class="header">
+		    <div class="logo">(주)썬라이팅</div>
+			<nav class="nav">
+			    <a th:href="@{/}">홈</a>
+			    <a th:href="@{/portfolio}">시공사례</a>
+			    <a th:href="@{/contact}">문의하기</a>
+			</nav>
+		</header>
+
+<section class="contact-section">
+
+    <div class="contact-header">
+        <div class="small-title">CONTACT</div>
+		
+			 <h1 class="contact-title">문의하기</h1>	
+
+        <p class="desc">
+            문의사항이 있으신 경우 아래 게시글을 작성해주시면<br>
+            담당자 확인 후 유·무선 상으로 답변드리겠습니다.
+        </p>
+    </div>
+
+    <!-- 상단 버튼 + 전체 개수 -->
+    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+        <div class="total-count">
+            전체 <span th:text="${list.size()}">0</span>
+        </div>
+
+        <a href="/contact/write" class="btn-submit" style="text-decoration:none;">문의 작성</a>
+    </div>
+
+    <!-- 리스트 테이블 -->
+    <table class="contact-table">
+
+        <thead>
+        <tr>
+            <th style="width: 70px;">번호</th>
+            <th>제목</th>
+            <th style="width: 140px;">작성자</th>
+            <th style="width: 150px;">작성일</th>
+            <th style="width: 120px;">상태</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="item : ${list}">
+            <td th:text="${item.id}">1</td>
+
+            <td>
+                <a th:href="@{'/contact/' + ${item.id}}" class="title-link">
+                    <img src="/img/lock.png" alt="" class="lock-icon">
+                    <span th:text="${item.title}">제목</span>
+                </a>
+            </td>
+
+            <td th:text="${item.name}">작성자</td>
+
+            <td th:text="${#temporals.format(item.createdAt, 'yyyy.MM.dd')}">2025.01.01</td>
+
+            <td>
+                <span th:if="${item.adminReply == null}" class="status-no">미답변</span>
+                <span th:if="${item.adminReply != null}" class="status-ok">답변 완료</span>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <p><strong>상호</strong> : 주식회사 썬라이팅&nbsp;&nbsp; / &nbsp;&nbsp;<strong>사업자등록번호</strong> : 134211-0291627</p>
+    <p><strong>주소</strong> : 경리도 광주시 초월읍 선장동길 61-29, 1층</p>
+    <p><strong>TEL</strong> : 010-9124-7815&nbsp;&nbsp;</p>
+    <p><strong>E-mail</strong> : sunlig2030@naver.com</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>문의 상세</title>
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/contact.css">
+</head>
+
+<body>
+
+<section class="contact-section">
+
+    <!-- 상단 제목 -->
+    <div class="contact-header">
+        <div class="small-title">CONTACT</div>
+        <h1 class="main-title">문의 상세</h1>
+    </div>
+
+    <!-- 상세 테이블 -->
+    <table class="detail-table">
+
+        <tr>
+            <th>제목</th>
+            <td th:text="${contact.title}">제목 표시</td>
+        </tr>
+
+        <tr>
+            <th>작성자</th>
+            <td th:text="${contact.name}">이름</td>
+        </tr>
+
+        <tr>
+            <th>전화번호</th>
+            <td th:text="${contact.phone}">010-0000-0000</td>
+        </tr>
+
+        <tr>
+            <th>이메일</th>
+            <td th:text="${contact.email}">example@test.com</td>
+        </tr>
+
+        <tr>
+            <th>작성일</th>
+            <td th:text="${#temporals.format(contact.createdAt, 'yyyy.MM.dd HH:mm')}">
+                2025.01.01
+            </td>
+        </tr>
+
+        <tr>
+            <th>내용</th>
+            <td class="content-box" th:text="${contact.message}">
+                문의 내용 자리
+            </td>
+        </tr>
+
+        <!-- 관리자 답변 있을 경우만 출력 -->
+        <tr th:if="${contact.adminReply != null}">
+            <th>관리자 답변</th>
+            <td class="reply-box" th:text="${contact.adminReply}">
+                답변 내용 자리
+            </td>
+        </tr>
+
+    </table>
+
+    <!-- 버튼 -->
+    <div class="detail-btn-box">
+        <a href="/contact" class="btn-back">목록으로</a>
+    </div>
+
+</section>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 문의 목록</title>
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/contact.css">
+</head>
+
+<body>
+
+<section class="contact-section">
+
+    <!-- 상단 제목 -->
+    <div class="contact-header">
+        <div class="small-title">ADMIN</div>
+        <h1 class="main-title">문의 관리</h1>
+    </div>
+
+    <!-- 전체 글 개수 -->
+    <div class="total-count">
+        전체 <span th:text="${list.size()}">0</span>
+    </div>
+
+    <!-- 테이블 -->
+    <table class="contact-table">
+
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>답변 여부</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="item : ${list}">
+            <td th:text="${item.id}">1</td>
+
+            <td>
+                <a th:href="@{'/admin/contact/' + ${item.id}}">
+                    <span th:text="${item.title}">제목</span>
+                </a>
+            </td>
+
+            <td th:text="${item.name}">작성자</td>
+
+            <td th:text="${#temporals.format(item.createdAt, 'yyyy.MM.dd')}">
+                2025.01.01
+            </td>
+
+            <td>
+                <span th:if="${item.adminReply == null}" class="status-no">미답변</span>
+                <span th:if="${item.adminReply != null}" class="status-ok">답변완료</span>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+</section>
+
+</body>
+</html>

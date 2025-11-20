@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>문의 작성</title>
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/contact.css">
+</head>
+<body>
+
+
+	<header class="header">
+		    <div class="logo">(주)썬라이팅</div>
+			<nav class="nav">
+			    <a th:href="@{/}">홈</a>
+			    <a th:href="@{/portfolio}">시공사례</a>
+			    <a th:href="@{/contact}">문의하기</a>
+			</nav>
+		</header>
+
+<section class="contact-section">
+
+    <div class="contact-header">
+        <div class="small-title">CONTACT</div>
+        <h1 class="main-title">문의 작성</h1>
+        <p class="desc">
+            문의 사항을 남겨주시면 빠르게 답변드리겠습니다.
+        </p>
+    </div>
+
+    <!-- 작성 폼 -->
+    <form action="/contact/write" method="post" class="write-form">
+
+        <table class="detail-table">
+            <tr>
+                <th>제목</th>
+                <td><input type="text" name="title" required class="input-box"></td>
+            </tr>
+
+            <tr>
+                <th>작성자</th>
+                <td><input type="text" name="name" required class="input-box"></td>
+            </tr>
+
+            <tr>
+                <th>전화번호</th>
+                <td><input type="text" name="phone" required class="input-box"></td>
+            </tr>
+
+            <tr>
+                <th>이메일</th>
+                <td><input type="email" name="email" required class="input-box"></td>
+            </tr>
+
+            <tr>
+                <th>비밀번호</th>
+                <td><input type="password" name="password" required class="input-box"></td>
+            </tr>
+
+            <tr>
+                <th>문의 내용</th>
+                <td>
+                    <textarea name="message" required class="textarea-box"></textarea>
+                </td>
+            </tr>
+        </table>
+
+        <div class="detail-btn-box" style="margin-top: 25px;">
+            <a href="/contact" class="btn-back">취소</a>
+            <button type="submit" class="btn-submit">등록하기</button>
+        </div>
+
+    </form>
+
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <p><strong>상호</strong> : 주식회사 썬라이팅&nbsp;&nbsp; / &nbsp;&nbsp;<strong>사업자등록번호</strong> : 134211-0291627</p>
+    <p><strong>주소</strong> : 경리도 광주시 초월읍 선장동길 61-29, 1층</p>
+    <p><strong>TEL</strong> : 010-9124-7815&nbsp;&nbsp;</p>
+    <p><strong>E-mail</strong> : sunlig2030@naver.com</p>
+  </div>
+</footer>
+
+</body>
+</html>

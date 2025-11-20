@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>문의하기</title>
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/contact.css">
+</head>
+<body>
+
+	<header class="header">
+		    <div class="logo">(주)썬라이팅</div>
+			<nav class="nav">
+			    <a th:href="@{/}">홈</a>
+			    <a th:href="@{/portfolio}">시공사례</a>
+			    <a th:href="@{/contact}">문의하기</a>
+			</nav>
+		</header>
+
+<section class="section">
+    <h2>문의하기</h2>
+
+    <form action="/contact" method="post">
+        <input type="text" name="name" placeholder="이름" required><br><br>
+        <input type="text" name="phone" placeholder="전화번호" required><br><br>
+        <input type="email" name="email" placeholder="이메일" required><br><br>
+        <textarea name="message" placeholder="문의 내용" required></textarea><br><br>
+
+        <button type="submit">제출</button>
+    </form>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <p><strong>상호</strong> : 주식회사 썬라이팅&nbsp;&nbsp; / &nbsp;&nbsp;<strong>사업자등록번호</strong> : 134211-0291627</p>
+    <p><strong>주소</strong> : 경리도 광주시 초월읍 선장동길 61-29, 1층</p>
+    <p><strong>TEL</strong> : 010-9124-7815&nbsp;&nbsp;</p>
+    <p><strong>E-mail</strong> : sunlig2030@naver.com</p>
+  </div>
+</footer>
+</body>
+</html>

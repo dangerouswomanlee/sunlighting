@@ -1,0 +1,278 @@
+
+/* 문의 공통 레이아웃 */
+
+.contact-section {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 80px;
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.small-title {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+.main-title {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.desc {
+    color: #555;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.total-count {
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+
+/* 문의 리스트 */
+
+
+.contact-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+}
+
+.contact-table th,
+.contact-table td {
+    padding: 16px 10px;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 17px;
+}
+
+.contact-table th {
+    font-weight: bold;
+}
+
+.lock-icon {
+    width: 18px;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.title-link {
+    color: #333;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.title-link:hover {
+    color: #0d1b3d;
+    text-decoration: underline;
+}
+
+/* 상태 표시 */
+.status-no {
+    color: #d9534f;
+    font-weight: bold;
+}
+
+.status-ok {
+    color: #3b6ff5;
+    font-weight: bold;
+}
+
+/* 문의 작성 버튼 */
+.contact-write-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: #0d1b3d;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 16px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.contact-write-btn:hover {
+    background: #08122c;
+}
+
+
+.contact-subtitle {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+.contact-title {
+    font-size: 48px;
+    font-weight: 900;
+    margin: 10px 0 25px 0;
+    text-align: center;
+}
+
+.contact-header {
+    text-align: center;
+    margin-top: 40px; /* 이 줄 추가 */
+    margin-bottom: 40px;
+}
+
+/* 문의 상세 페이지 */
+
+.detail-table {
+    width: 100%;
+    border-top: 2px solid #000;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+.detail-table th {
+    width: 200px;
+    background: #f7f7f7;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+    text-align: left;
+}
+
+.detail-table td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.content-box {
+    white-space: pre-line;
+    line-height: 1.6;
+}
+
+.reply-box {
+    background: #f5f9ff;
+    border-left: 3px solid #3b6ff5;
+    padding: 15px;
+    white-space: pre-line;
+}
+
+.detail-btn-box {
+    text-align: right;
+    margin-top: 30px;
+}
+
+.btn-back {
+    padding: 10px 20px;
+    background: #222;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn-back:hover {
+    background: #000;
+}
+
+/*  문의 작성 폼 */
+
+.write-form {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.write-form table {
+    width: 100%;
+    border-top: 2px solid #000;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+.write-form th {
+    width: 180px;
+    background: #f7f7f7;
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+}
+
+.write-form td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.write-form input[type="text"],
+.write-form input[type="email"],
+.write-form input[type="password"],
+.write-form input[type="tel"],
+.write-form textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.write-form textarea {
+    height: 200px;
+    resize: vertical;
+}
+
+/* 제출 버튼 */
+.btn-submit {
+    margin-top: 25px;
+    display: inline-block;
+    padding: 12px 25px;
+    background: #0d1b3d;
+    color: #fff;
+    font-size: 17px;
+    border-radius: 6px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #08122c;
+}
+
+/* 비밀번호 확인 페이지 */
+
+.password-box {
+    width: 400px;
+    margin: 60px auto;
+    text-align: center;
+}
+
+.password-box input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    font-size: 17px;
+    border-radius: 6px;
+}
+
+.password-box button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background: #0d1b3d;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 17px;
+}
+
+.password-box button:hover {
+    background: #08122c;
+}
+
+.error-msg {
+    margin-top: 10px;
+    color: red;
+    font-size: 15px;
+}
