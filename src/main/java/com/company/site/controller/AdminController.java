@@ -1,12 +1,15 @@
 package com.company.site.controller;
 
+import com.company.site.config.JwtUtil;
 import com.company.site.model.Contact;
 import com.company.site.service.AdminService;
 import com.company.site.service.ContactService;
 import com.company.site.service.LoginAttemptService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +24,7 @@ public class AdminController {
     private final AdminService adminService;
     private final ContactService contactService;
     private final LoginAttemptService loginAttemptService;
+    private final JwtUtil jwtUtil;
 
     @GetMapping("/login")
     public String loginPage() {
@@ -31,6 +35,7 @@ public class AdminController {
     public String login(@RequestParam String username,
                         @RequestParam String password,
                         HttpServletRequest request,
+                        HttpServletResponse response,
                         Model model) {
 
         if (loginAttemptService.isBlocked(username)) {
@@ -41,11 +46,13 @@ public class AdminController {
         if (adminService.login(username, password)) {
             loginAttemptService.reset(username);
 
-            // 세션 고정 공격 방어: 기존 세션 무효화 후 새 세션 생성
-            HttpSession oldSession = request.getSession(false);
-            if (oldSession != null) oldSession.invalidate();
-            HttpSession newSession = request.getSession(true);
-            newSession.setAttribute("admin", true);
+            // 세션 고정 공격 방어
+            HttpSession old = request.getSession(false);
+            if (old != null) old.invalidate();
+
+            // JWT 발급 → HttpOnly 쿠키에 저장 (JS 접근 불가)
+            String token = jwtUtil.generateToken();
+            response.addHeader(HttpHeaders.SET_COOKIE, jwtUtil.createAuthCookie(token).toString());
 
             return "redirect:/xk9b4m7/contact/list";
         }
@@ -62,25 +69,19 @@ public class AdminController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
+    public String logout(HttpServletResponse response) {
+        response.addHeader(HttpHeaders.SET_COOKIE, jwtUtil.clearAuthCookie().toString());
         return "redirect:/xk9b4m7/login";
     }
 
     @GetMapping("/contact/list")
-    public String adminList(HttpSession session, Model model) {
-        if (!Boolean.TRUE.equals(session.getAttribute("admin"))) {
-            return "redirect:/xk9b4m7/login";
-        }
+    public String adminList(Model model) {
         model.addAttribute("list", contactService.findAll());
         return "admin-contact-list";
     }
 
     @GetMapping("/contact/{id}")
-    public String adminDetail(@PathVariable Long id, HttpSession session, Model model) {
-        if (!Boolean.TRUE.equals(session.getAttribute("admin"))) {
-            return "redirect:/xk9b4m7/login";
-        }
+    public String adminDetail(@PathVariable Long id, Model model) {
         Contact contact = contactService.findById(id).orElse(null);
         if (contact == null) return "redirect:/xk9b4m7/contact/list";
         model.addAttribute("contact", contact);
@@ -88,21 +89,13 @@ public class AdminController {
     }
 
     @PostMapping("/contact/{id}/delete")
-    public String delete(@PathVariable Long id, HttpSession session) {
-        if (!Boolean.TRUE.equals(session.getAttribute("admin"))) {
-            return "redirect:/xk9b4m7/login";
-        }
+    public String delete(@PathVariable Long id) {
         contactService.delete(id);
         return "redirect:/xk9b4m7/contact/list";
     }
 
     @PostMapping("/contact/{id}/reply")
-    public String reply(@PathVariable Long id,
-                        @RequestParam String reply,
-                        HttpSession session) {
-        if (!Boolean.TRUE.equals(session.getAttribute("admin"))) {
-            return "redirect:/xk9b4m7/login";
-        }
+    public String reply(@PathVariable Long id, @RequestParam String reply) {
         Contact contact = contactService.findById(id).orElse(null);
         if (contact == null) return "redirect:/xk9b4m7/contact/list";
 
