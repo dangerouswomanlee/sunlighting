@@ -3,10 +3,10 @@ package com.company.site.service;
 import com.company.site.model.Contact;
 import com.company.site.repository.ContactRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -16,17 +16,19 @@ import java.util.Optional;
 public class ContactService {
 
     private final ContactRepository contactRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public Contact save(Contact contact) {
-        contact.setCreatedAt(LocalDateTime.now());
+        if (contact.getId() == null) {
+            contact.setCreatedAt(LocalDateTime.now());
+            contact.setPassword(passwordEncoder.encode(contact.getPassword()));
+        }
         return contactRepository.save(contact);
     }
 
     public List<Contact> findAll() {
         List<Contact> list = contactRepository.findAll();
-
         list.sort(Comparator.comparing(Contact::getId).reversed());
-
         return list;
     }
 
@@ -35,6 +37,10 @@ public class ContactService {
     }
 
     public boolean checkPassword(Contact contact, String inputPassword) {
-        return contact.getPassword().equals(inputPassword);
+        return passwordEncoder.matches(inputPassword, contact.getPassword());
+    }
+
+    public void delete(Long id) {
+        contactRepository.deleteById(id);
     }
 }

@@ -55,8 +55,8 @@
         </thead>
 
         <tbody>
-        <tr th:each="item : ${list}">
-            <td th:text="${item.id}">1</td>
+        <tr th:each="item, stat : ${list}">
+            <td th:text="${list.size() - stat.index}">1</td>
 
             <td>
                 <a th:href="@{'/contact/' + ${item.id}}" class="title-link">

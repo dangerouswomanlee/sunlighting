@@ -36,11 +36,11 @@
         </thead>
 
         <tbody>
-        <tr th:each="item : ${list}">
-            <td th:text="${item.id}">1</td>
+        <tr th:each="item, stat : ${list}">
+            <td th:text="${list.size() - stat.index}">1</td>
 
             <td>
-                <a th:href="@{'/admin/contact/' + ${item.id}}">
+                <a th:href="@{'/xk9b4m7/contact/' + ${item.id}}">
                     <span th:text="${item.title}">제목</span>
                 </a>
             </td>

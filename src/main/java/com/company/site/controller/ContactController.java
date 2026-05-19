@@ -2,9 +2,11 @@ package com.company.site.controller;
 
 import com.company.site.model.Contact;
 import com.company.site.service.ContactService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpSession;
 
@@ -23,13 +25,17 @@ public class ContactController {
 
     // 문의 작성 페이지
     @GetMapping("/contact/write")
-    public String write() {
+    public String write(Model model) {
+        model.addAttribute("contact", new Contact());
         return "contact-write";
     }
 
     // 문의 저장
     @PostMapping("/contact/write")
-    public String writeSubmit(Contact contact) {
+    public String writeSubmit(@Valid Contact contact, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "contact-write";
+        }
         contactService.save(contact);
         return "redirect:/contact";
     }

@@ -26,16 +26,14 @@
         <!-- 1 ~ 10.jpg 자동 로딩 -->
         <img th:each="i : ${#numbers.sequence(1, 10)}"
              th:src="@{/img/{folder}/{num}.jpg(folder=${id}, num=${i})}"
-             class="detail-photo"
-             onclick="openImage(this.src)"
-             onerror="this.style.display='none'">
+             class="detail-photo">
 
     </div>
 
 </section>
 
 <!-- ==== 이미지 팝업 ==== -->
-<div id="imageModal" class="image-modal" onclick="closeImage()">
+<div id="imageModal" class="image-modal">
     <img id="modalImg">
 </div>
 
@@ -48,16 +46,7 @@
   </div>
 </footer>
 
-<script>
-function openImage(src) {
-    document.getElementById("modalImg").src = src;
-    document.getElementById("imageModal").style.display = "flex";
-}
-
-function closeImage() {
-    document.getElementById("imageModal").style.display = "none";
-}
-</script>
+<script src="/js/portfolio-detail.js"></script>
 
 </body>
 </html>

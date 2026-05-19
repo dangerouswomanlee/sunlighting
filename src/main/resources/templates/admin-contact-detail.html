@@ -5,6 +5,20 @@
     <title>문의 상세 (관리자)</title>
 	<link rel="stylesheet" href="/css/style.css">
 	<link rel="stylesheet" href="/css/contact.css">
+	<style>
+		.btn-delete {
+			padding: 8px 20px;
+			background: #e53e3e;
+			color: #fff;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 14px;
+		}
+		.btn-delete:hover { background: #c53030; }
+		.detail-btn-box { display: flex; gap: 10px; align-items: center; }
+		.detail-btn-box form { margin: 0; }
+	</style>
 </head>
 
 <body>
@@ -66,7 +80,7 @@
     <div class="reply-form-box">
         <h3>답변 작성</h3>
 
-        <form th:action="@{'/admin/contact/' + ${contact.id} + '/reply'}" method="post">
+        <form th:action="@{'/xk9b4m7/contact/' + ${contact.id} + '/reply'}" method="post">
             <textarea name="reply" placeholder="관리자 답변을 입력하세요" required></textarea><br><br>
             <button type="submit" class="btn-submit">등록하기</button>
         </form>
@@ -74,10 +88,15 @@
 
     <!-- 버튼 -->
     <div class="detail-btn-box">
-        <a href="/admin/contact/list" class="btn-back">목록으로</a>
+        <a href="/xk9b4m7/contact/list" class="btn-back">목록으로</a>
+
+        <form id="delete-form" th:action="@{'/xk9b4m7/contact/' + ${contact.id} + '/delete'}" method="post">
+            <button type="submit" class="btn-delete">삭제</button>
+        </form>
     </div>
 
 </section>
 
+<script src="/js/admin.js"></script>
 </body>
 </html>

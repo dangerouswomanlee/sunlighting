@@ -5,9 +5,11 @@
     <title>문의 작성</title>
 	<link rel="stylesheet" href="/css/style.css">
 	<link rel="stylesheet" href="/css/contact.css">
+	<style>
+		.field-error { color: #e53e3e; font-size: 13px; margin-top: 4px; display: block; }
+	</style>
 </head>
 <body>
-
 
 	<header class="header">
 		    <div class="logo">(주)썬라이팅</div>
@@ -28,39 +30,54 @@
         </p>
     </div>
 
-    <!-- 작성 폼 -->
-    <form action="/contact/write" method="post" class="write-form">
+    <form th:action="@{/contact/write}" th:object="${contact}" method="post" class="write-form">
 
         <table class="detail-table">
             <tr>
                 <th>제목</th>
-                <td><input type="text" name="title" required class="input-box"></td>
+                <td>
+                    <input type="text" th:field="*{title}" class="input-box">
+                    <span class="field-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                </td>
             </tr>
 
             <tr>
                 <th>작성자</th>
-                <td><input type="text" name="name" required class="input-box"></td>
+                <td>
+                    <input type="text" th:field="*{name}" class="input-box">
+                    <span class="field-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                </td>
             </tr>
 
             <tr>
                 <th>전화번호</th>
-                <td><input type="text" name="phone" required class="input-box"></td>
+                <td>
+                    <input type="text" th:field="*{phone}" class="input-box" placeholder="010-1234-5678">
+                    <span class="field-error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+                </td>
             </tr>
 
             <tr>
                 <th>이메일</th>
-                <td><input type="email" name="email" required class="input-box"></td>
+                <td>
+                    <input type="text" th:field="*{email}" class="input-box">
+                    <span class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </td>
             </tr>
 
             <tr>
                 <th>비밀번호</th>
-                <td><input type="password" name="password" required class="input-box"></td>
+                <td>
+                    <input type="password" th:field="*{password}" class="input-box">
+                    <span class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                </td>
             </tr>
 
             <tr>
                 <th>문의 내용</th>
                 <td>
-                    <textarea name="message" required class="textarea-box"></textarea>
+                    <textarea th:field="*{message}" class="textarea-box"></textarea>
+                    <span class="field-error" th:if="${#fields.hasErrors('message')}" th:errors="*{message}"></span>
                 </td>
             </tr>
         </table>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>서버 오류가 발생했습니다</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .error-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .error-code {
+            font-size: 100px;
+            font-weight: 700;
+            color: #1a1a2e;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+        .error-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        .error-desc {
+            font-size: 15px;
+            color: #888;
+            margin-bottom: 36px;
+        }
+        .btn-home {
+            display: inline-block;
+            padding: 12px 32px;
+            background: #1a1a2e;
+            color: #fff;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 15px;
+        }
+        .btn-home:hover { background: #2d2d5e; }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">(주)썬라이팅</div>
+    <nav class="nav">
+        <a th:href="@{/}">홈</a>
+        <a th:href="@{/portfolio}">시공사례</a>
+        <a th:href="@{/contact}">문의하기</a>
+    </nav>
+</header>
+
+<section class="error-section">
+    <div class="error-code">500</div>
+    <div class="error-title">서버 오류가 발생했습니다</div>
+    <div class="error-desc">일시적인 오류가 발생했습니다.<br>잠시 후 다시 시도해 주세요.</div>
+    <a href="/" class="btn-home">홈으로 돌아가기</a>
+</section>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <p><strong>상호</strong> : 주식회사 썬라이팅&nbsp;&nbsp; / &nbsp;&nbsp;<strong>사업자등록번호</strong> : 134211-0291627</p>
+        <p><strong>주소</strong> : 경리도 광주시 초월읍 선장동길 61-29, 1층</p>
+        <p><strong>TEL</strong> : 010-9124-7815</p>
+        <p><strong>E-mail</strong> : sunlig2030@naver.com</p>
+    </div>
+</footer>
+
+</body>
+</html>

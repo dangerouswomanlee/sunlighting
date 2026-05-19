@@ -3,6 +3,8 @@ package com.company.site.controller;
 import com.company.site.model.Contact;
 import com.company.site.service.AdminService;
 import com.company.site.service.ContactService;
+import com.company.site.service.LoginAttemptService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,13 +15,13 @@ import java.time.LocalDateTime;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/admin")
+@RequestMapping("/xk9b4m7")
 public class AdminController {
 
     private final AdminService adminService;
     private final ContactService contactService;
+    private final LoginAttemptService loginAttemptService;
 
-    // 로그인 페이지
     @GetMapping("/login")
     public String loginPage() {
         return "admin-login";
@@ -28,70 +30,86 @@ public class AdminController {
     @PostMapping("/login")
     public String login(@RequestParam String username,
                         @RequestParam String password,
-                        HttpSession session,
+                        HttpServletRequest request,
                         Model model) {
 
-        if (adminService.login(username, password)) {
-            session.setAttribute("admin", true);
-            return "redirect:/admin/contact/list";
+        if (loginAttemptService.isBlocked(username)) {
+            model.addAttribute("error", "로그인 시도가 너무 많습니다. 10분 후 다시 시도해주세요.");
+            return "admin-login";
         }
 
-        model.addAttribute("error", "아이디 또는 비밀번호가 올바르지 않습니다.");
+        if (adminService.login(username, password)) {
+            loginAttemptService.reset(username);
+
+            // 세션 고정 공격 방어: 기존 세션 무효화 후 새 세션 생성
+            HttpSession oldSession = request.getSession(false);
+            if (oldSession != null) oldSession.invalidate();
+            HttpSession newSession = request.getSession(true);
+            newSession.setAttribute("admin", true);
+
+            return "redirect:/xk9b4m7/contact/list";
+        }
+
+        loginAttemptService.loginFailed(username);
+        int remaining = loginAttemptService.getRemainingAttempts(username);
+
+        if (remaining <= 0) {
+            model.addAttribute("error", "로그인 시도가 너무 많습니다. 10분 후 다시 시도해주세요.");
+        } else {
+            model.addAttribute("error", "아이디 또는 비밀번호가 올바르지 않습니다. (남은 시도: " + remaining + "회)");
+        }
         return "admin-login";
     }
 
-    // 로그아웃
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/admin/login";
+        return "redirect:/xk9b4m7/login";
     }
 
-    // 관리자 문의 목록
     @GetMapping("/contact/list")
     public String adminList(HttpSession session, Model model) {
-
-        if (session.getAttribute("admin") == null) {
-            return "redirect:/admin/login";
+        if (!Boolean.TRUE.equals(session.getAttribute("admin"))) {
+            return "redirect:/xk9b4m7/login";
         }
-
         model.addAttribute("list", contactService.findAll());
         return "admin-contact-list";
     }
 
-    // 관리자 문의 상세 페이지
     @GetMapping("/contact/{id}")
     public String adminDetail(@PathVariable Long id, HttpSession session, Model model) {
-
-        if (session.getAttribute("admin") == null) {
-            return "redirect:/admin/login";
+        if (!Boolean.TRUE.equals(session.getAttribute("admin"))) {
+            return "redirect:/xk9b4m7/login";
         }
-
         Contact contact = contactService.findById(id).orElse(null);
-        if (contact == null) return "redirect:/admin/contact/list";
-
+        if (contact == null) return "redirect:/xk9b4m7/contact/list";
         model.addAttribute("contact", contact);
         return "admin-contact-detail";
     }
 
-    // 관리자 답글 등록
+    @PostMapping("/contact/{id}/delete")
+    public String delete(@PathVariable Long id, HttpSession session) {
+        if (!Boolean.TRUE.equals(session.getAttribute("admin"))) {
+            return "redirect:/xk9b4m7/login";
+        }
+        contactService.delete(id);
+        return "redirect:/xk9b4m7/contact/list";
+    }
+
     @PostMapping("/contact/{id}/reply")
     public String reply(@PathVariable Long id,
                         @RequestParam String reply,
                         HttpSession session) {
-
-        if (session.getAttribute("admin") == null) {
-            return "redirect:/admin/login";
+        if (!Boolean.TRUE.equals(session.getAttribute("admin"))) {
+            return "redirect:/xk9b4m7/login";
         }
-
         Contact contact = contactService.findById(id).orElse(null);
-        if (contact == null) return "redirect:/admin/contact/list";
+        if (contact == null) return "redirect:/xk9b4m7/contact/list";
 
         contact.setAdminReply(reply);
         contact.setReplyAt(LocalDateTime.now());
-
         contactService.save(contact);
 
-        return "redirect:/admin/contact/" + id;
+        return "redirect:/xk9b4m7/contact/" + id;
     }
 }
