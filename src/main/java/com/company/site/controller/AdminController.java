@@ -4,6 +4,7 @@ import com.company.site.config.JwtUtil;
 import com.company.site.model.Contact;
 import com.company.site.service.AdminService;
 import com.company.site.service.ContactService;
+import com.company.site.service.EmailService;
 import com.company.site.service.LoginAttemptService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,6 +26,7 @@ public class AdminController {
     private final ContactService contactService;
     private final LoginAttemptService loginAttemptService;
     private final JwtUtil jwtUtil;
+    private final EmailService emailService;
 
     @GetMapping("/login")
     public String loginPage() {
@@ -75,8 +77,9 @@ public class AdminController {
     }
 
     @GetMapping("/contact/list")
-    public String adminList(Model model) {
-        model.addAttribute("list", contactService.findAll());
+    public String adminList(@RequestParam(required = false) String keyword, Model model) {
+        model.addAttribute("list", contactService.search(keyword));
+        model.addAttribute("keyword", keyword != null ? keyword : "");
         return "admin-contact-list";
     }
 
@@ -102,6 +105,8 @@ public class AdminController {
         contact.setAdminReply(reply);
         contact.setReplyAt(LocalDateTime.now());
         contactService.save(contact);
+
+        emailService.sendReplyNotification(contact.getEmail(), contact.getTitle(), reply);
 
         return "redirect:/xk9b4m7/contact/" + id;
     }

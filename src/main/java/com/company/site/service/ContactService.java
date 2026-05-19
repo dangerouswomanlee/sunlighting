@@ -32,6 +32,13 @@ public class ContactService {
         return list;
     }
 
+    public List<Contact> search(String keyword) {
+        if (keyword == null || keyword.isBlank()) return findAll();
+        List<Contact> list = contactRepository.findByTitleContainingIgnoreCase(keyword);
+        list.sort(Comparator.comparing(Contact::getId).reversed());
+        return list;
+    }
+
     public Optional<Contact> findById(Long id) {
         return contactRepository.findById(id);
     }

@@ -18,8 +18,9 @@ public class ContactController {
 
     // 문의 목록
     @GetMapping("/contact")
-    public String list(Model model) {
-        model.addAttribute("list", contactService.findAll());
+    public String list(@RequestParam(required = false) String keyword, Model model) {
+        model.addAttribute("list", contactService.search(keyword));
+        model.addAttribute("keyword", keyword != null ? keyword : "");
         return "contact-list";
     }
 

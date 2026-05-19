@@ -17,6 +17,17 @@
         <h1 class="main-title">문의 관리</h1>
     </div>
 
+    <!-- 검색 폼 -->
+    <form th:action="@{/xk9b4m7/contact/list}" method="get" style="display:flex; gap:8px; margin-bottom:16px;">
+        <input type="text" name="keyword" th:value="${keyword}"
+               placeholder="제목으로 검색"
+               style="flex:1; padding:8px 12px; border:1px solid #ddd; border-radius:4px; font-size:14px;">
+        <button type="submit"
+                style="padding:8px 20px; background:#1a1a2e; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:14px;">검색</button>
+        <a th:if="${keyword != ''}" href="/xk9b4m7/contact/list"
+           style="padding:8px 16px; background:#eee; color:#333; border-radius:4px; text-decoration:none; font-size:14px; line-height:1.6;">초기화</a>
+    </form>
+
     <!-- 전체 글 개수 -->
     <div class="total-count">
         전체 <span th:text="${list.size()}">0</span>
