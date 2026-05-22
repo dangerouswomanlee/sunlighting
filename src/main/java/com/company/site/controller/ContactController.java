@@ -16,7 +16,6 @@ public class ContactController {
 
     private final ContactService contactService;
 
-    // 문의 목록
     @GetMapping("/contact")
     public String list(@RequestParam(required = false) String keyword, Model model) {
         model.addAttribute("list", contactService.search(keyword));
@@ -24,14 +23,12 @@ public class ContactController {
         return "contact-list";
     }
 
-    // 문의 작성 페이지
     @GetMapping("/contact/write")
     public String write(Model model) {
         model.addAttribute("contact", new Contact());
         return "contact-write";
     }
 
-    // 문의 저장
     @PostMapping("/contact/write")
     public String writeSubmit(@Valid Contact contact, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -41,14 +38,12 @@ public class ContactController {
         return "redirect:/contact";
     }
 
-    // 글 비밀번호 입력 페이지
     @GetMapping("/contact/{id}")
     public String passwordPage(@PathVariable Long id, Model model) {
         model.addAttribute("id", id);
         return "contact-password";
     }
 
-    // 비밀번호 검증 후 상세 페이지 이동
     @PostMapping("/contact/{id}")
     public String validatePassword(@PathVariable Long id,
                                    @RequestParam String password,

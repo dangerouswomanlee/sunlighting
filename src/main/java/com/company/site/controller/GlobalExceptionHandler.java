@@ -13,7 +13,6 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    // /contact/abc 처럼 Long 이 아닌 경로 변수가 들어온 경우
     @ExceptionHandler({MethodArgumentTypeMismatchException.class, NoResourceFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleNotFound(HttpServletRequest request, Exception e) {
@@ -21,7 +20,6 @@ public class GlobalExceptionHandler {
         return "error/404";
     }
 
-    // DB 오류, NullPointerException 등 예상치 못한 서버 오류
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public String handleServerError(HttpServletRequest request, Exception e) {

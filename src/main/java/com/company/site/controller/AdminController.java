@@ -48,11 +48,9 @@ public class AdminController {
         if (adminService.login(username, password)) {
             loginAttemptService.reset(username);
 
-            // 세션 고정 공격 방어
             HttpSession old = request.getSession(false);
             if (old != null) old.invalidate();
 
-            // JWT 발급 → HttpOnly 쿠키에 저장 (JS 접근 불가)
             String token = jwtUtil.generateToken();
             response.addHeader(HttpHeaders.SET_COOKIE, jwtUtil.createAuthCookie(token).toString());
 
