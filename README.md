@@ -28,7 +28,7 @@
   </tr>
   <tr>
     <td align="center" width="50%">
-      <img src="https://github.com/user-attachments/assets/ef0d7d3d-eb86-41a2-81fb-e59141f6acb7" width="100%" />
+      <img width="1179" height="2016" alt="image" src="https://github.com/user-attachments/assets/c7ff39ae-e861-4358-86ad-5d7c7502fe26" />
     </td>
     <td align="center" width="50%">
       <img src="https://github.com/user-attachments/assets/833aacaa-145f-47f5-816d-d8fff3226ace" width="100%" />
