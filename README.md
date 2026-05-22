@@ -10,15 +10,16 @@
 
 ## 📸 스크린샷
 
-> 아래 각 항목에 해당 화면 캡처 이미지를 삽입하세요.
-
 <table>
   <tr>
     <th colspan="2" align="left">🏠 홈페이지 — 이미지 슬라이더 & 회사 소개</th>
   </tr>
   <tr>
-    <td colspan="2">
-      <!-- [사진 1] 홈페이지 전체 화면 (슬라이더 + 회사 소개 섹션) -->
+    <td align="center" width="50%">
+      <img src="https://github.com/user-attachments/assets/3fd6cbb1-676f-4caf-a19d-08f1c4fb96a1" width="100%" />
+    </td>
+    <td align="center" width="50%">
+      <img src="https://github.com/user-attachments/assets/8697687e-8124-4348-b2e0-1b658b684deb" width="100%" />
     </td>
   </tr>
   <tr>
@@ -27,10 +28,11 @@
   </tr>
   <tr>
     <td align="center" width="50%">
-      <!-- [사진 2] 포트폴리오 카드 목록 화면 -->
+      <img src="https://github.com/user-attachments/assets/ef0d7d3d-eb86-41a2-81fb-e59141f6acb7" width="100%" />
     </td>
     <td align="center" width="50%">
-      <!-- [사진 3] 포트폴리오 상세 이미지 팝업 화면 -->
+      <img src="https://github.com/user-attachments/assets/833aacaa-145f-47f5-816d-d8fff3226ace" width="100%" />
+      <img src="https://github.com/user-attachments/assets/f861c30b-8d64-4aa7-881f-58e01ac09b97" width="100%" />
     </td>
   </tr>
   <tr>
@@ -39,10 +41,18 @@
   </tr>
   <tr>
     <td align="center" width="50%">
-      <!-- [사진 4] 문의 목록 화면 -->
+      <img src="https://github.com/user-attachments/assets/db8fdacc-2da6-4da7-bad3-294d5f4bfc74" width="100%" />
     </td>
     <td align="center" width="50%">
-      <!-- [사진 5] 문의 작성 폼 화면 -->
+      <img src="https://github.com/user-attachments/assets/531c703c-8377-4de4-abc2-0941bb7e26f8" width="100%" />
+    </td>
+  </tr>
+  <tr>
+    <th colspan="2" align="left">📧 답변 이메일 알림</th>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <img src="https://github.com/user-attachments/assets/25bf9334-39fc-432c-ae99-a2a66e090075" width="40%" />
     </td>
   </tr>
 </table>
@@ -57,10 +67,10 @@
   </tr>
   <tr>
     <td align="center" width="50%">
-      <img src="https://github.com/dangerouswomanlee/sunlighting/raw/main/image/admin_login.png" width="100%" />
+      <img src="https://github.com/user-attachments/assets/dce87dbf-1ff6-4470-b60d-176c28e15093" width="100%" />
     </td>
     <td align="center" width="50%">
-      <img src="https://github.com/dangerouswomanlee/sunlighting/raw/main/image/admin_contact_list.png" width="100%" />
+      <img src="https://github.com/user-attachments/assets/bf82919e-ccf5-4eb1-b3b7-f5637fc7513b" width="100%" />
     </td>
   </tr>
   <tr>
@@ -69,10 +79,10 @@
   </tr>
   <tr>
     <td align="center" width="50%">
-      <img src="https://github.com/dangerouswomanlee/sunlighting/raw/main/image/admin_detail1.png" width="100%" />
+      <img src="https://github.com/user-attachments/assets/9f5577b5-6faa-4fb3-9f64-f6deaef3baea" width="100%" />
     </td>
     <td align="center" width="50%">
-      <img src="https://github.com/dangerouswomanlee/sunlighting/raw/main/image/admin_detail2.png" width="100%" />
+      <img src="https://github.com/user-attachments/assets/ceb7a345-2fe3-4ab6-b26c-9b7eb46004b2" width="100%" />
     </td>
   </tr>
 </table>
@@ -101,7 +111,7 @@
 - **비밀번호 인증** — 본인이 작성한 문의만 내용 열람 가능
 - **이메일 알림** — 관리자 답변 등록 시 작성자 이메일로 자동 발송 (Naver SMTP)
 
-### 4. 관리자 페이지 `/xk9b4m7`
+### 4. 관리자 페이지
 - **JWT 기반 인증** — 쿠키에 JWT 저장, 세션 고정 공격 방지
 - **로그인 시도 제한** — 일정 횟수 초과 시 10분 차단 (Brute-force 방어)
 - **전체 문의 목록 관리** — 키워드 검색, 문의 상세 조회
@@ -224,7 +234,6 @@ cd sunlighting
 | `http://localhost:10000` | 홈페이지 |
 | `http://localhost:10000/portfolio` | 포트폴리오 |
 | `http://localhost:10000/contact` | 문의 게시판 |
-| `http://localhost:10000/xk9b4m7/login` | 관리자 로그인 |
 | `http://localhost:10000/h2-console` | H2 DB 콘솔 (로컬 전용) |
 
 #### H2 콘솔 접속 정보
@@ -284,7 +293,7 @@ Password  : (없음)
 
 ## 🔒 보안 구조
 
-- **관리자 URL 난독화** — `/admin` 대신 `/xk9b4m7` 경로 사용
+- **관리자 URL 난독화** — 추측하기 어려운 경로로 관리자 페이지 접근 차단
 - **JWT 인증** — 로그인 성공 시 JWT를 HttpOnly 쿠키에 저장, `AdminAuthInterceptor`로 매 요청 검증
 - **Brute-force 방어** — `LoginAttemptService`로 로그인 실패 횟수 추적, 초과 시 10분 차단
 - **세션 고정 공격 방지** — 로그인 시 기존 세션 무효화 후 새 세션 발급
