@@ -6,6 +6,7 @@ import com.company.site.service.AdminService;
 import com.company.site.service.ContactService;
 import com.company.site.service.EmailService;
 import com.company.site.service.LoginAttemptService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,13 +42,15 @@ public class AdminController {
                         HttpServletResponse response,
                         Model model) {
 
-        if (loginAttemptService.isBlocked(username)) {
+        String attemptKey = "admin-login:" + request.getRemoteAddr();
+
+        if (loginAttemptService.isBlocked(attemptKey)) {
             model.addAttribute("error", "로그인 시도가 너무 많습니다. 10분 후 다시 시도해주세요.");
             return "admin-login";
         }
 
         if (adminService.login(username, password)) {
-            loginAttemptService.reset(username);
+            loginAttemptService.reset(attemptKey);
 
             HttpSession old = request.getSession(false);
             if (old != null) old.invalidate();
@@ -57,8 +61,8 @@ public class AdminController {
             return "redirect:/xk9b4m7/contact/list";
         }
 
-        loginAttemptService.loginFailed(username);
-        int remaining = loginAttemptService.getRemainingAttempts(username);
+        loginAttemptService.loginFailed(attemptKey);
+        int remaining = loginAttemptService.getRemainingAttempts(attemptKey);
 
         if (remaining <= 0) {
             model.addAttribute("error", "로그인 시도가 너무 많습니다. 10분 후 다시 시도해주세요.");
@@ -68,8 +72,15 @@ public class AdminController {
         return "admin-login";
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpServletResponse response) {
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            Arrays.stream(cookies)
+                    .filter(c -> "admin_token".equals(c.getName()))
+                    .findFirst()
+                    .ifPresent(c -> jwtUtil.revokeToken(c.getValue()));
+        }
         response.addHeader(HttpHeaders.SET_COOKIE, jwtUtil.clearAuthCookie().toString());
         return "redirect:/xk9b4m7/login";
     }

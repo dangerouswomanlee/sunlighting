@@ -12,9 +12,15 @@
 <section class="contact-section">
 
     <!-- 상단 제목 -->
-    <div class="contact-header">
-        <div class="small-title">ADMIN</div>
-        <h1 class="main-title">문의 관리</h1>
+    <div class="contact-header" style="display:flex; justify-content:space-between; align-items:flex-end;">
+        <div>
+            <div class="small-title">ADMIN</div>
+            <h1 class="main-title">문의 관리</h1>
+        </div>
+        <form th:action="@{/xk9b4m7/logout}" method="post">
+            <button type="submit"
+                    style="padding:8px 16px; background:#eee; color:#333; border:none; border-radius:4px; cursor:pointer; font-size:14px;">로그아웃</button>
+        </form>
     </div>
 
     <!-- 검색 폼 -->
