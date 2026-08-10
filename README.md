@@ -125,19 +125,11 @@
 ---
 
 ## 프로젝트 구조
+ <td align="center" width="50%">
+   <img width="807" height="706" alt="image" src="https://github.com/user-attachments/assets/13c2bed3-4986-4896-8958-0491f4226db9" />
+ </td>
 
-```
-sunlighting/
-├── src/main/java/com/company/site/
-│   ├── config/          # Security, JWT, 인터셉터, 보안 헤더
-│   ├── controller/      # Home / Portfolio / Contact / Admin
-│   ├── model/           # Contact, Admin
-│   ├── repository/
-│   └── service/         # Contact, Admin, Email, LoginAttempt
-└── src/main/resources/
-    ├── templates/       # Thymeleaf 뷰
-    └── static/          # css / js / img
-```
+
 
 ---
 
