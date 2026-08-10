@@ -1,8 +1,10 @@
 # (주)썬라이팅 공식 웹사이트
 
-경관 조명 시공 전문 기업 (주)썬라이팅의 기업 홈페이지입니다. 시공 사례 포트폴리오, 고객 문의 게시판, 관리자 답변 시스템으로 구성되어 있습니다.
+경관 조명 시공 전문 기업 (주)썬라이팅의 기업 홈페이지입니다. 시공 사례를 보여주는 포트폴리오, 고객 문의 게시판, 관리자 답변 시스템으로 구성했습니다.
 
 배포 URL: https://sunlighting.onrender.com
+
+---
 
 ## 스크린샷
 
@@ -24,7 +26,7 @@
   </tr>
   <tr>
     <td align="center" width="50%">
-      <img width="1179" height="2016" alt="image" src="https://github.com/user-attachments/assets/c7ff39ae-e861-4358-86ad-5d7c7502fe26" />
+      <img src="https://github.com/user-attachments/assets/c7ff39ae-e861-4358-86ad-5d7c7502fe26" width="100%" />
     </td>
     <td align="center" width="50%">
       <img src="https://github.com/user-attachments/assets/833aacaa-145f-47f5-816d-d8fff3226ace" width="100%" />
@@ -83,164 +85,74 @@
   </tr>
 </table>
 
+---
+
 ## 주요 기능
 
-### 1. 홈페이지 (`/`)
+### 1. 홈페이지 `/`
+- 이미지 슬라이더가 3초마다 자동으로 넘어갑니다. 좌우 버튼으로 직접 넘기는 것도 가능합니다.
+- 조명 종류를 소개합니다. 경관 조명, 드롭형 조명, 라인 조명, 외벽 연출 조명, 조명 조형물, 크리스마스 트리까지 다룹니다.
+- 회사 소개 섹션에서 경관 조명 전문성, 안전 시공, 맞춤형 디자인이라는 강점을 보여줍니다.
 
-메인 배너는 3초 간격으로 자동 전환되고, 좌우 버튼으로 수동 전환도 가능합니다. 경관 조명, 드롭형 조명, 라인 조명, 외벽 연출 조명, 조명 조형물, 크리스마스 트리 등 조명 종류를 소개하고, 회사 소개 섹션에서는 경관 조명 전문성, 안전 시공, 맞춤형 디자인 세 가지를 강점으로 내세우고 있습니다.
+### 2. 포트폴리오 `/portfolio`
+- 지금까지 진행한 시공 사례 16건을 카드 형태로 보여줍니다.
+- 상세 페이지에 들어가면 프로젝트별 이미지가 최대 10장까지 자동으로 불러와집니다.
+- 이미지를 클릭하면 확대해서 볼 수 있습니다.
 
-### 2. 포트폴리오 (`/portfolio`)
-
-시공 사례 16건을 카드 목록으로 보여주고, 상세 페이지에서는 프로젝트별 이미지를 `1.jpg`부터 `10.jpg`까지 자동으로 불러옵니다. 클릭하면 이미지가 확대되어 보입니다.
-
-등록된 시공 사례: 강남 데이터센터, 강원랜드 하이원 리조트, 과천 계룡건설, 금성백조, 금성백조 예미지, 대구 중앙로역 푸르지오, 대전 SBS 아카데미, 대전 코오롱건설, 대전 현대아울렛, 발왕산 용평리조트, 부산 덕천 포레나, 소공동 롯데백화점, 소공동 영프라자, 왕길역 푸르지오, 정동진 리조트, 힐스테이트 푸르지오 주안
-
-### 3. 문의 게시판 (`/contact`)
-
-최신순으로 정렬되고 키워드 검색과 답변 여부(미답변/답변 완료) 표시가 됩니다. 문의 작성 시 제목, 작성자, 전화번호, 이메일, 비밀번호, 내용을 입력하며, 본인이 작성한 문의는 비밀번호를 입력해야 내용을 열람할 수 있습니다. 관리자가 답변을 등록하면 작성자 이메일로 알림이 자동 발송됩니다 (Naver SMTP).
+### 3. 문의 게시판 `/contact`
+- 문의는 최신순으로 정렬되고, 키워드로 검색할 수 있습니다. 답변이 달렸는지 여부도 목록에서 바로 보입니다.
+- 문의 작성 시 제목, 작성자, 전화번호, 이메일, 비밀번호, 내용을 입력받습니다.
+- 본인이 작성한 문의는 비밀번호를 입력해야 내용을 볼 수 있습니다.
+- 관리자가 답변을 등록하면 작성자 이메일로 알림이 자동 발송됩니다. Naver SMTP를 사용했습니다.
 
 ### 4. 관리자 페이지
+- JWT로 인증하고, 토큰은 HttpOnly 쿠키에 저장합니다.
+- 로그인을 여러 번 실패하면 일정 시간 동안 접근을 막습니다.
+- 전체 문의를 검색하고 상세 내용을 확인할 수 있습니다.
+- 답변을 등록하거나 문의를 삭제할 수 있고, 답변 등록 시 이메일이 자동으로 나갑니다.
 
-JWT를 HttpOnly 쿠키에 저장해 인증하고, 세션 고정 공격을 막기 위한 처리도 되어 있습니다. 로그인 실패가 일정 횟수를 넘으면 10분간 차단되고(Brute-force 방어), 전체 문의 목록 검색·상세 조회와 답변 등록·삭제가 가능합니다. 답변 등록 시 이메일도 자동으로 발송됩니다.
+---
 
 ## 기술 스택
 
-| 구분 | 기술 | 버전 |
-|------|------|------|
-| Backend | Spring Boot | 3.2.7 |
-| | Spring Data JPA | - |
-| | Spring Security | - |
-| | Spring Validation | - |
-| | Spring Mail | - |
-| | JWT (jjwt) | 0.12.5 |
-| | Lombok | 1.18.32 |
-| Frontend | Thymeleaf | - |
-| | HTML5 / CSS3 / JavaScript | - |
-| Database | PostgreSQL (운영) / H2 (로컬) | - |
-| 빌드 | Maven | - |
-| 배포 | Docker / Render | - |
+| 구분 | 기술 |
+| --- | --- |
+| Backend | Spring Boot 3.2.7, Spring Data JPA, Spring Security, Spring Validation, Spring Mail, JWT (jjwt 0.12.5), Lombok |
+| Frontend | Thymeleaf, HTML5, CSS3, JavaScript |
+| Database | PostgreSQL (운영), H2 (로컬) |
+| 빌드/배포 | Maven, Docker, Render |
+
+---
 
 ## 프로젝트 구조
 
 ```
 sunlighting/
 ├── src/main/java/com/company/site/
-│   ├── SunlightingApplication.java
-│   ├── config/
-│   │   ├── SecurityConfig.java          # Spring Security / CSRF 설정
-│   │   ├── WebConfig.java               # MVC 설정
-│   │   ├── AppConfig.java
-│   │   ├── JwtUtil.java                 # JWT 생성 / 검증 / 쿠키
-│   │   ├── AdminAuthInterceptor.java    # 관리자 인증 인터셉터
-│   │   └── SecurityHeaderFilter.java   # 보안 헤더 필터
-│   ├── controller/
-│   │   ├── HomeController.java          # 홈 페이지
-│   │   ├── PortfolioController.java     # 포트폴리오 목록 / 상세
-│   │   ├── ContactController.java       # 문의 CRUD, 비밀번호 인증
-│   │   ├── AdminController.java         # 관리자 로그인, 답변 관리
-│   │   └── GlobalExceptionHandler.java  # 전역 예외 처리
-│   ├── model/
-│   │   ├── Contact.java
-│   │   └── Admin.java
+│   ├── config/          # Security, JWT, 인터셉터, 보안 헤더
+│   ├── controller/      # Home / Portfolio / Contact / Admin
+│   ├── model/           # Contact, Admin
 │   ├── repository/
-│   │   ├── ContactRepository.java
-│   │   └── AdminRepository.java
-│   └── service/
-│       ├── ContactService.java
-│       ├── AdminService.java
-│       ├── EmailService.java            # Naver SMTP 이메일 발송
-│       └── LoginAttemptService.java     # 로그인 시도 횟수 관리
-│
+│   └── service/         # Contact, Admin, Email, LoginAttempt
 └── src/main/resources/
-    ├── application.properties
-    ├── templates/
-    │   ├── index.html
-    │   ├── portfolio.html
-    │   ├── portfolio_detail.html
-    │   ├── contact.html
-    │   ├── contact-list.html
-    │   ├── contact-write.html
-    │   ├── contact-password.html
-    │   ├── contact-detail.html
-    │   ├── admin-login.html
-    │   ├── admin-contact-list.html
-    │   ├── admin-contact-detail.html
-    │   ├── success.html
-    │   └── error/
-    │       ├── 403.html
-    │       ├── 404.html
-    │       └── 500.html
-    └── static/
-        ├── css/
-        │   ├── style.css
-        │   ├── contact.css
-        │   ├── password.css
-        │   └── admin-login.css
-        ├── js/
-        │   ├── main.js
-        │   ├── admin.js
-        │   └── portfolio-detail.js
-        └── img/
-            ├── 홈/
-            └── {프로젝트명}/
+    ├── templates/       # Thymeleaf 뷰
+    └── static/          # css / js / img
 ```
 
-## 로컬 실행 방법
+---
 
-Java 17 이상과 Maven이 필요합니다.
-
-```bash
-git clone https://github.com/dangerouswomanlee/sunlighting.git
-cd sunlighting
-./mvnw spring-boot:run
-```
-
-로컬에서는 H2 인메모리 DB가 자동으로 사용됩니다. 실행 후 아래 주소에서 확인할 수 있습니다.
-
-| URL | 설명 |
-|-----|------|
-| `http://localhost:10000` | 홈페이지 |
-| `http://localhost:10000/portfolio` | 포트폴리오 |
-| `http://localhost:10000/contact` | 문의 게시판 |
-| `http://localhost:10000/h2-console` | H2 DB 콘솔 (로컬 전용) |
-
-H2 콘솔 접속 정보는 다음과 같습니다.
-
-```
-JDBC URL  : jdbc:h2:mem:testdb
-Username  : sa
-Password  : (없음)
-```
-
-## 환경 변수
-
-운영 배포 시 아래 환경변수를 설정해야 합니다.
-
-| 변수명 | 설명 | 기본값 |
-|--------|------|--------|
-| `DB_URL` | PostgreSQL JDBC URL | - |
-| `DB_USERNAME` | DB 사용자명 | - |
-| `DB_PASSWORD` | DB 비밀번호 | - |
-| `PORT` | 서버 포트 | `10000` |
-| `MAIL_HOST` | SMTP 호스트 | `smtp.naver.com` |
-| `MAIL_PORT` | SMTP 포트 | `465` |
-| `MAIL_USERNAME` | 발신 이메일 계정 | - |
-| `MAIL_PASSWORD` | 이메일 앱 비밀번호 | - |
-| `JWT_SECRET` | JWT 서명 키 | 기본값 있음 (운영 시 반드시 변경) |
-| `JWT_COOKIE_SECURE` | HTTPS 쿠키 보안 | `false` |
-
-## DB 스키마
+## DB 구조
 
 ### Contact (문의)
 
 | 컬럼 | 타입 | 설명 |
-|------|------|------|
+| --- | --- | --- |
 | id | Long (PK) | 자동 증가 |
 | title | String | 문의 제목 |
 | name | String | 작성자 이름 |
 | phone | String | 전화번호 |
 | email | String | 이메일 |
-| password | String | 비밀번호 |
+| password | String | 문의 열람용 비밀번호 |
 | message | TEXT | 문의 내용 |
 | createdAt | LocalDateTime | 작성일 |
 | adminReply | TEXT | 관리자 답변 |
@@ -249,20 +161,67 @@ Password  : (없음)
 ### Admin (관리자)
 
 | 컬럼 | 타입 | 설명 |
-|------|------|------|
+| --- | --- | --- |
 | username | String (PK) | 관리자 아이디 |
 | password | String | 비밀번호 |
 
+---
+
+## 로컬 실행 방법
+
+```bash
+git clone https://github.com/dangerouswomanlee/sunlighting.git
+cd sunlighting
+./mvnw spring-boot:run
+```
+
+로컬에서 실행하면 H2 인메모리 DB가 자동으로 사용됩니다.
+
+| URL | 설명 |
+| --- | --- |
+| `http://localhost:10000` | 홈페이지 |
+| `http://localhost:10000/portfolio` | 포트폴리오 |
+| `http://localhost:10000/contact` | 문의 게시판 |
+
+---
+
+## 트러블슈팅
+
+
+### 1. 로컬에서는 정상 작동하지만 배포 후 서버 오류 발생
+
+* **문제**: 로컬 환경에서는 정상적으로 작동했지만, 실제 서버에 배포한 후 여러 오류가 발생했습니다.
+* **해결**: 배포 서버의 에러 로그를 확인하면서 오류가 발생한 부분을 하나씩 수정했습니다. 이 과정에서 서버에 직접 프로젝트를 배포하는 방법과 로컬 환경과 배포 환경의 차이를 익혔습니다. 또한 배포하면서 환경 변수와 같은 보안 설정의 중요성도 처음 알게 되어, DB 정보나 API 키 등을 코드에 직접 작성하지 않도록 수정했습니다.
+
+### 2. MySQL → PostgreSQL 변경
+
+* **문제**: 개발 단계에서는 MySQL을 사용했지만, 배포 과정에서 PostgreSQL을 사용하게 되면서 DB 환경을 변경해야 했습니다.
+* **해결**: PostgreSQL을 처음 사용해보면서 기존 DB 설정과 쿼리를 확인하고, PostgreSQL 환경에 맞게 수정했습니다. MySQL과 문법 및 설정이 다른 부분이 있어 관련 내용을 찾아보며 적용했습니다.
+
+### 3. 무료 DB 삭제로 인한 DB 재연결
+
+* **문제**: 사용하던 무료 DB의 데이터 보관 정책을 미리 확인하지 않아, 일정 기간이 지난 후 DB가 삭제되면서 연결이 끊겼습니다.
+* **해결**: 새로운 DB를 생성한 후 배포된 애플리케이션의 DB 설정을 다시 변경하고 연결했습니다. 이후 무료 서비스를 사용할 때는 사용 기간이나 데이터 삭제 정책을 먼저 확인하도록 했습니다.
+
+### 4. 디자인 경험 부족
+
+* **문제**: 기능 구현은 어느 정도 경험이 있었지만 직접 웹사이트 디자인을 구성해본 경험이 부족해 초기 레이아웃과 색상 선정에 어려움이 있었습니다.
+* **해결**: 여러 웹사이트를 참고해 레이아웃과 색상 조합을 정하고, 실제 화면에 적용하면서 수정하는 방식으로 디자인을 구성했습니다.
+
+---
+
+## 느낀 점
+
+처음부터 끝까지 혼자 배포까지 해본 프로젝트라 부딪히는 문제도 많았습니다. 특히 DB를 두 번이나 새로 설정해야 했던 건 예상하지 못한 일이었습니다. 다음에는 배포 환경의 제약사항을 먼저 확인하고 시작하려고 합니다. 그래도 기획부터 배포까지 전체 과정을 직접 경험하면서 각 단계에서 어떤 문제가 생길 수 있는지 감을 잡을 수 있었습니다.
+
+---
+
 ## 보안 구조
 
-관리자 페이지는 추측하기 어려운 경로로 접근 경로를 숨겨두었습니다. 로그인에 성공하면 JWT를 HttpOnly 쿠키에 저장하고, `AdminAuthInterceptor`가 매 요청마다 검증합니다. `LoginAttemptService`로 로그인 실패 횟수를 추적해 일정 횟수를 넘기면 10분간 차단하고(Brute-force 방어), 로그인 시 기존 세션을 무효화한 뒤 새 세션을 발급해 세션 고정 공격을 막습니다. 이 밖에 `HttpSessionCsrfTokenRepository`로 CSRF를 방어하고, `SecurityHeaderFilter`로 X-Frame-Options 등 보안 헤더를 추가했으며, stacktrace나 에러 메시지가 노출되지 않도록 처리했습니다.
-
-## 회사 정보
-
-| 항목 | 내용 |
-|------|------|
-| 상호 | 주식회사 썬라이팅 |
-| 사업자등록번호 | 134211-0291627 |
-| 주소 | 경기도 광주시 초월읍 선장동길 61-29, 1층 |
-| 전화 | 010-9124-7815 |
-| 이메일 | sunlig2030@naver.com |
+- 관리자 URL 난독화 — 추측하기 어려운 경로로 관리자 페이지 접근 차단
+- JWT 인증 — 로그인 성공 시 JWT를 HttpOnly 쿠키에 저장, 인터셉터로 매 요청 검증
+- Brute-force 방어 — 로그인 실패 횟수 추적 후 초과 시 일정 시간 차단
+- 세션 고정 공격 방지 — 로그인 시 기존 세션 무효화 후 새 세션 발급
+- CSRF 보호 적용
+- 보안 헤더 필터 — X-Frame-Options 등 추가
+- 에러 정보 차단 — stacktrace, 상세 에러 메시지 노출 비활성화
